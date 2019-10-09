@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">GiphuGifs</string>
+    <string name="app_name">GiphyGifs</string>
+    <string name="search_settings">Search settings</string>
+    <string-array name="searchType">
+        <item>search</item>
+        <item>trending</item>
+        <item>random</item>
+    </string-array>
 </resources>
