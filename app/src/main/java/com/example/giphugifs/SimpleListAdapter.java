@@ -8,16 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
 class SimpleListAdapter extends ArrayAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<String> imageUrls;
+
 
     public SimpleListAdapter(Context baseContext, ArrayList<String> listItems) {
         super(baseContext,R.layout.list_item_image,listItems);
@@ -38,6 +41,8 @@ class SimpleListAdapter extends ArrayAdapter {
                 .with(context)
                 .asGif()
                 .load(imageUrls.get(position))
+                .centerCrop()
+                .skipMemoryCache(true)
                 .into((ImageView)convertView);
 
         return convertView;

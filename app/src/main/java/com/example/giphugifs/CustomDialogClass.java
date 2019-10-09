@@ -36,8 +36,6 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
     static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";
     static final String SHARED_PREF_STRING_SEARCH_AMOUNT = "SearchAmount";
 
-
-
     public CustomDialogClass(Activity a, Search searchObj) {
         super(a);
         // TODO Auto-generated constructor stub
@@ -45,7 +43,6 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
         this.type = searchObj.getType();
         this.offset = searchObj.getOffset();
         this.limit = searchObj.getLimit();
-
     }
 
     @Override
@@ -86,14 +83,11 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
     }
     public void callMainActivity(String type, String limit,String offset){
         searchObj = new Search(type,limit,offset);
-
         SharedPreferences.Editor editor = getPrefs(getContext()).edit();
         editor.putString(SHARED_PREF_STRING_SEARCH_OFFSET,offset);
         editor.putString(SHARED_PREF_STRING_SEARCH_AMOUNT,limit);
         editor.putString(SHARED_PREF_STRING_SEARCH_TYPE,type);
         editor.apply();
-
-        Log.d("giphyApp",type + " " + limit + " " + offset + " saving done");
         mainActivity.setObj(searchObj);
     }
 

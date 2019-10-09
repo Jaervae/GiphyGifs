@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchedItem = editText.getText().toString();
-                loadData();
                 switch (type) {
                     case "search":
                         finalUrl = urlP1 + type + apiKey + "&q="+ searchedItem + "&limit=" + limit + urlP2 + offset + urlP3;
