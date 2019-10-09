@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private String searchedItem = "";
     private String limit;
     private String offset;
+    private int idType;
     private final String urlP2 = "&offset=";
     private final String urlP3 = "&rating=G&lang=en";
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     static final String SHARED_PREF_STRING_SEARCH_TYPE = "SearchType";
     static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";
     static final String SHARED_PREF_STRING_SEARCH_AMOUNT = "SearchAmount";
+    static final String SHARED_PREF_STRING_SEARCH_ID = "SearchId";
 
 
     @Override
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listItems.clear();
                 searchedItem = editText.getText().toString();
                 switch (type) {
                     case "search":
@@ -73,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case "trending":
                         finalUrl = urlP1 + type + apiKey + "&limit=" + limit + "&rating=G";
+                        Log.d(TAG,finalUrl);
                         break;
                     case "random":
                         finalUrl = urlP1 + type + apiKey + "&tag=&rating=G";
                         break;
                 }
-
                 Log.d(TAG, finalUrl);
                 sendRequest(finalUrl);
             }
@@ -184,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(SHARED_PREF_STRING_SEARCH_OFFSET,offset);
         editor.putString(SHARED_PREF_STRING_SEARCH_AMOUNT,limit);
         editor.putString(SHARED_PREF_STRING_SEARCH_TYPE,type);
+        editor.putInt(SHARED_PREF_STRING_SEARCH_ID,idType);
         editor.apply();
     }
 
@@ -191,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         offset = searchObj.getOffset();
         limit = searchObj.getLimit();
         type = searchObj.getType();
+        idType = searchObj.getIdType();
     }
 
 
@@ -204,7 +209,8 @@ public class MainActivity extends AppCompatActivity {
         type = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_TYPE,null);
         limit = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_AMOUNT,null);
         offset = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_OFFSET,null);
-        searchObj = new Search(type,limit,offset);
+        idType = sharedPreferences.getInt(SHARED_PREF_STRING_SEARCH_ID,0);
+        searchObj = new Search(type,limit,offset,idType);
     }
 
     @Override
