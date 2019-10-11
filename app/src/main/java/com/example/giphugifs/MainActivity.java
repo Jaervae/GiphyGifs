@@ -1,10 +1,16 @@
 package com.example.giphugifs;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +26,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -98,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = listItems.get(position);
+                Log.d("LOGIDEBUG", url);
                 /*Intent email = new Intent(Intent.ACTION_SEND);
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
                 //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
@@ -108,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 //need this to prompts email client only
                 email.setType("message/rfc822");
                 startActivity(Intent.createChooser());*/
+                share(url);
                 return false;
             }
         });
@@ -199,5 +217,35 @@ public class MainActivity extends AppCompatActivity {
         idType = saveData.getInt(SHARED_PREF_STRING_SEARCH_ID);
 
         searchObj = new Search(type,limit,offset,idType);
+    }
+
+    @SuppressLint("CheckResult")
+    public void share(String url) {
+        File imagePath = new File(getFilesDir(), "external_files");
+        imagePath.mkdir();
+        File imageFile = new File(imagePath, "test.gif");
+        try {
+            byte[] readData = new byte[1024*500];
+            InputStream fis = getResources().openRawResource(getResources().getIdentifier("test","drawable", getPackageName()));
+            //InputStream fis = new URL(url).openStream();
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            int i = fis.read(readData);
+            while(i != -1) {
+                fos.write(readData, 0, i);
+                i = fis.read(readData);
+            }
+            fos.close();
+        }catch (Exception e) { e.printStackTrace(); }
+        Uri uri = FileProvider.getUriForFile(this, "com.example.giphugifs.fileprovider", imageFile);
+        Intent intent = ShareCompat.IntentBuilder.from(MainActivity.this)
+                .setStream(uri)
+                .setType("text/html")
+                .getIntent()
+                .setAction(Intent.ACTION_SEND)
+                .setDataAndType(uri, "image/gif")
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(intent, "Share"));
+
+
     }
 }
