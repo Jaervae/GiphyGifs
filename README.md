@@ -1,2 +1,2 @@
 # GiphyGifs
-School project
+Small android project for school.
