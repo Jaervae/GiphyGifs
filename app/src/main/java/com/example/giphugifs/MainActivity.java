@@ -1,11 +1,10 @@
 package com.example.giphugifs;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.giphugifs.BuildConfig;
+
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     final private String TAG = "giphyApp";
     private GridView gridView;
     Search searchObj;
+    Context context = this;
 
-    static final String SHARED_PREF_FILE = "GiphyApp";
     static final String SHARED_PREF_STRING_SEARCH_TYPE = "SearchType";
     static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";
     static final String SHARED_PREF_STRING_SEARCH_AMOUNT = "SearchAmount";
@@ -64,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editText = findViewById(R.id.editTextMain);
         gridView = findViewById(R.id.gridViewMain);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getBaseContext(),SingleGifActivity.class);
+                intent.putExtra("fav", listItems.get(position).toString());
+                intent.putExtra("show", true);
+                startActivity(intent);
+            }
+        });
         button = findViewById(R.id.buttonMain);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,10 +140,8 @@ public class MainActivity extends AppCompatActivity {
                                             listItems
                                     )
                             );
-
                         }
                     });
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -143,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 Log.i(TAG,"Error :" + error.toString());
             }
         });
@@ -153,42 +158,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    protected SharedPreferences getPref() {
-        return getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_searchSettings) {
             loadData();
-            CustomDialogClass cdd=new CustomDialogClass(this, searchObj);
+            CustomDialogClass cdd=new CustomDialogClass(this, searchObj,context);
             cdd.show();
             return true;
         }
-
+        if (id == R.id.action_favorites){
+            Intent intent = new Intent(this, FavoriteActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void saveToSharedPrefs(){
-        Log.d("giphyApp",type + " " + limit + " " + offset + " saving");
-        SharedPreferences sharedPreferences = getPref();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SHARED_PREF_STRING_SEARCH_OFFSET,offset);
-        editor.putString(SHARED_PREF_STRING_SEARCH_AMOUNT,limit);
-        editor.putString(SHARED_PREF_STRING_SEARCH_TYPE,type);
-        editor.putInt(SHARED_PREF_STRING_SEARCH_ID,idType);
-        editor.apply();
     }
 
     public void setObj(Search searchObj){
@@ -198,24 +185,19 @@ public class MainActivity extends AppCompatActivity {
         idType = searchObj.getIdType();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         loadData();
     }
+
     public void loadData(){
-        SharedPreferences sharedPreferences = getPref();
-        type = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_TYPE,null);
-        limit = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_AMOUNT,null);
-        offset = sharedPreferences.getString(SHARED_PREF_STRING_SEARCH_OFFSET,null);
-        idType = sharedPreferences.getInt(SHARED_PREF_STRING_SEARCH_ID,0);
+        SaveData saveData = new SaveData(context);
+        type = saveData.getString(SHARED_PREF_STRING_SEARCH_TYPE);
+        limit = saveData.getString(SHARED_PREF_STRING_SEARCH_AMOUNT);
+        offset = saveData.getString(SHARED_PREF_STRING_SEARCH_OFFSET);
+        idType = saveData.getInt(SHARED_PREF_STRING_SEARCH_ID);
+
         searchObj = new Search(type,limit,offset,idType);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
     }
 }
