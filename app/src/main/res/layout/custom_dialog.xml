@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp">
+    android:background="@color/colorPrimary">
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewDialogLabel"
@@ -16,7 +16,8 @@
         android:textSize="20sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:textColor="@android:color/white">
     </TextView>
 
     <Spinner
@@ -27,7 +28,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:entries="@array/searchType"
-        android:spinnerMode="dropdown">
+        android:spinnerMode="dropdown"
+        android:textColor="@android:color/white">
     </Spinner>
 
     <TextView
@@ -38,7 +40,8 @@
         android:textSize="15sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:textColor="@android:color/white">
     </TextView>
     <EditText
         android:layout_width="wrap_content"
@@ -47,7 +50,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:text=""
-        android:id="@+id/editTextDialogSearchAmmount">
+        android:id="@+id/editTextDialogSearchAmmount"
+        android:textColor="@android:color/white">
     </EditText>
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +61,8 @@
         android:textSize="15sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:textColor="@android:color/white">
     </TextView>
     <EditText
         android:layout_width="wrap_content"
@@ -68,7 +73,8 @@
         android:text=""
         android:gravity="center"
         android:hint="Mitä pienempi arvo sen tarkempi haku"
-        android:id="@+id/editTextDialogSearchOffset">
+        android:id="@+id/editTextDialogSearchOffset"
+        android:textColor="@android:color/white">
     </EditText>
 
     <Button
@@ -76,6 +82,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonDialogSave"
         android:textSize="20sp"
-        android:text="Tallenna asetukset">
+        android:text="Tallenna asetukset"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp">
     </Button>
 </LinearLayout>

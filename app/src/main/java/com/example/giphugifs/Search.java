@@ -21,7 +21,6 @@ public class Search {
         return limit;
     }
 
-
     public String getOffset() {
         return offset;
     }
