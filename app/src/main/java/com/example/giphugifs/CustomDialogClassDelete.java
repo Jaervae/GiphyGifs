@@ -16,22 +16,22 @@ import java.util.ArrayList;
 
 public class CustomDialogClassDelete extends Dialog implements android.view.View.OnClickListener {
 
-    public Activity c;
-    public Button yes, no;
-    public ImageView imageView;
-    public String url;
-    public int position;
-    Context context;
+    private Activity c;
+    private Button yes, no;
+    private ImageView imageView;
+    private String url;
+    private int position;
+    private Context context;
 
-    static final String SHARED_PREF_LIST = "MyURLS";
+    private static final String SHARED_PREF_LIST = "MyURLS";
 
-    ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<String> list = new ArrayList<String>();
 
     public interface DialogInterface {
         void dataChanged();
     }
 
-    DialogInterface cbInterface = null;
+    private DialogInterface cbInterface = null;
 
     public CustomDialogClassDelete(Activity a, String url, int position,Context context, DialogInterface cb) {
         super(a);
@@ -63,14 +63,14 @@ public class CustomDialogClassDelete extends Dialog implements android.view.View
     }
 
 
-    public void loadData(){
+    private void loadData(){
         SaveData saveData = new SaveData(context);
         list = saveData.getListString(SHARED_PREF_LIST);
     }
 
-    public void saveData(){
+    private void saveData(){
         SaveData saveData = new SaveData(context);
-        saveData.putListString(SHARED_PREF_LIST, list);
+        saveData.saveListString(SHARED_PREF_LIST, list);
     }
 
 
