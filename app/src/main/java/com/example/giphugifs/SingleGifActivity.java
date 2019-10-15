@@ -12,7 +12,9 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -51,9 +53,18 @@ public class SingleGifActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Kuva tallenettu!",Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "GIF saved to favorites!",Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 list.add(url);
+            }
+        });
+
+        Button button = findViewById(R.id.buttonShare);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Share the gif user just long clicked from the list
+                new DownloadImageFromCacheTask(SingleGifActivity.this).execute(url);
             }
         });
     }

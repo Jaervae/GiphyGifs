@@ -31,7 +31,7 @@ public class SaveData {
     }
 
 
-    public void saveSring(String key, String aParam){
+    public void saveString(String key, String aParam){
         preferences.edit().putString(key, aParam).apply();
     }
 

@@ -1,6 +1,7 @@
 package com.example.giphugifs;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,12 +46,12 @@ public class DownloadImageFromCacheTask extends AsyncTask<String, Void, File> {
         }
         //Get file from fileprovider to prevent uri leakage
         Uri uri = FileProvider.getUriForFile(context, "com.example.giphugifs.fileprovider", result);
-        share(uri, (MainActivity) context);
+        share(uri, (Activity) context);
     }
 
     //Share the file we just downloaded with Glide to other apps!
-    private void share(Uri result, MainActivity mainActivity) {
-        Intent intent = ShareCompat.IntentBuilder.from(mainActivity)
+    private void share(Uri result, Activity activity) {
+        Intent intent = ShareCompat.IntentBuilder.from(activity)
                 .setStream(result)
                 .setType("text/html")
                 .getIntent()

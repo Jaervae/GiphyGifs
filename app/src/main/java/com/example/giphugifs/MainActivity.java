@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("LOGIDEBUG", url);
                 //Share the gif user just long clicked from the list
                 new DownloadImageFromCacheTask(MainActivity.this).execute(url);
-                return false;
+                return true;
             }
         });
     }
