@@ -21,8 +21,7 @@ public class SaveData {
         return new ArrayList<String>(Arrays.asList(TextUtils.split(preferences.getString(key, ""), "‚‗‚")));
     }
 
-    public void putListString(String key, ArrayList<String> stringList) {
-        checkForNullKey(key);
+    public void saveListString(String key, ArrayList<String> stringList) {
         String[] myStringList = stringList.toArray(new String[stringList.size()]);
         preferences.edit().putString(key, TextUtils.join("‚‗‚", myStringList)).apply();
     }
@@ -32,7 +31,6 @@ public class SaveData {
     }
 
     public void saveSring(String key, String aParam){
-        checkForNullKey(key);
         preferences.edit().putString(key, aParam).apply();
     }
 
@@ -41,15 +39,7 @@ public class SaveData {
     }
 
     public void saveInt(String key, int aParam){
-        checkForNullKey(key);
         preferences.edit().putInt(key, aParam).apply();
     }
 
-
-
-    public void checkForNullKey(String key){
-        if (key == null){
-            throw new NullPointerException();
-        }
-    }
 }

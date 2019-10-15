@@ -13,11 +13,12 @@ import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity implements CustomDialogClassDelete.DialogInterface{
 
-    static final String SHARED_PREF_LIST = "MyURLS";
-    Context context = this;
+    private static final String SHARED_PREF_LIST = "MyURLS";
+    private Context context = this;
 
-    ArrayList<String> list = new ArrayList<String>();
-    GridView gridView;
+    private ArrayList<String> list = new ArrayList<String>();
+    private GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -21,11 +21,11 @@ public class SingleGifActivity extends AppCompatActivity {
 
     private String url;
     private Boolean showFavoriteButton = true;
-    ArrayList<String> list = new ArrayList<String>();
-    Context context = this;
-    FloatingActionButton fab;
+    private ArrayList<String> list = new ArrayList<String>();
+    private Context context = this;
+    private FloatingActionButton fab;
 
-    static final String SHARED_PREF_LIST = "MyURLS";
+    private static final String SHARED_PREF_LIST = "MyURLS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,6 @@ public class SingleGifActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         SaveData saveData = new SaveData(context);
-        saveData.putListString(SHARED_PREF_LIST, list);
+        saveData.saveListString(SHARED_PREF_LIST, list);
     }
 }
