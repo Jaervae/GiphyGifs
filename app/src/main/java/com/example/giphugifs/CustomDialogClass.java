@@ -80,9 +80,9 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
     private void callMainActivity(String type, String limit, String offset, int idType){
         searchObj = new Search(type,limit,offset,idType);
         SaveData saveData = new SaveData(context);
-        saveData.saveSring(SHARED_PREF_STRING_SEARCH_OFFSET, offset);
-        saveData.saveSring(SHARED_PREF_STRING_SEARCH_AMOUNT, limit);
-        saveData.saveSring(SHARED_PREF_STRING_SEARCH_TYPE, type);
+        saveData.saveString(SHARED_PREF_STRING_SEARCH_OFFSET, offset);
+        saveData.saveString(SHARED_PREF_STRING_SEARCH_AMOUNT, limit);
+        saveData.saveString(SHARED_PREF_STRING_SEARCH_TYPE, type);
         saveData.saveInt(SHARED_PREF_STRING_SEARCH_ID, idType);
         mainActivity.setObj(searchObj);
     }
