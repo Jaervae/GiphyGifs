@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <files-path
-        path="external_files/"
-        name="myimages"
+<paths xmlns:tools="http://schemas.android.com/tools">
+    <cache-path
+        name="fileprovider"
+        path="image_manager_disk_cache"
+        tools:path="DiskCache.Factory.DEFAULT_DISK_CACHE_DIR"
         />
 </paths>

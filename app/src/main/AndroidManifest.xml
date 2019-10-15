@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".GifFileProvider"
             android:authorities="com.example.giphugifs.fileprovider"
             android:enabled="true"
             android:exported="false"

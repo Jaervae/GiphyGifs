@@ -113,17 +113,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = listItems.get(position);
                 Log.d("LOGIDEBUG", url);
-                /*Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
-                //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
-                //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
-                email.putExtra(Intent.EXTRA_SUBJECT, subject);
-                email.putExtra(Intent.EXTRA_TEXT, message);
-
-                //need this to prompts email client only
-                email.setType("message/rfc822");
-                startActivity(Intent.createChooser());*/
-                share(url);
+                //Share the gif user just long clicked from the list
+                new DownloadImageFromCacheTask(MainActivity.this).execute(url);
                 return false;
             }
         });
@@ -215,35 +206,5 @@ public class MainActivity extends AppCompatActivity {
         idType = saveData.getInt(SHARED_PREF_STRING_SEARCH_ID);
 
         searchObj = new Search(type,limit,offset,idType);
-    }
-
-    @SuppressLint("CheckResult")
-    public void share(String url) {
-        File imagePath = new File(getFilesDir(), "external_files");
-        imagePath.mkdir();
-        File imageFile = new File(imagePath, "test.gif");
-        try {
-            byte[] readData = new byte[1024*500];
-            InputStream fis = getResources().openRawResource(getResources().getIdentifier("test","drawable", getPackageName()));
-            //InputStream fis = new URL(url).openStream();
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            int i = fis.read(readData);
-            while(i != -1) {
-                fos.write(readData, 0, i);
-                i = fis.read(readData);
-            }
-            fos.close();
-        }catch (Exception e) { e.printStackTrace(); }
-        Uri uri = FileProvider.getUriForFile(this, "com.example.giphugifs.fileprovider", imageFile);
-        Intent intent = ShareCompat.IntentBuilder.from(MainActivity.this)
-                .setStream(uri)
-                .setType("text/html")
-                .getIntent()
-                .setAction(Intent.ACTION_SEND)
-                .setDataAndType(uri, "image/gif")
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(intent, "Share"));
-
-
     }
 }
