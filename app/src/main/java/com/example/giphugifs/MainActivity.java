@@ -45,27 +45,25 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editText = null;
-    Button button = null;
-    String apiKey = "?api_key=" + BuildConfig.ApiKey;
+    private EditText editText = null;
+    private Button button = null;
     private final String urlP1 = "https://api.giphy.com/v1/gifs/";
-    private String type;
+    private String apiKey = "?api_key=" + BuildConfig.ApiKey;
+    private String type, limit, offset;
     private String searchedItem = "";
-    private String limit;
-    private String offset;
-    private int idType;
+    private String finalUrl = "";
     private final String urlP2 = "&offset=";
     private final String urlP3 = "&rating=G&lang=en";
+    private int idType;
 
-    String finalUrl = "";
 
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    ArrayList<String> listItems = new ArrayList<String>();
-    final private String TAG = "giphyApp";
+    private ArrayList<String> listItems = new ArrayList<String>();
+    private final String TAG = "giphyApp";
     private GridView gridView;
-    Search searchObj;
-    Context context = this;
+    private Search searchObj;
+    private Context context = this;
 
     static final String SHARED_PREF_STRING_SEARCH_TYPE = "SearchType";
     static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";

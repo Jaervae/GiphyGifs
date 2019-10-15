@@ -13,25 +13,25 @@ import android.widget.Spinner;
 
 public class CustomDialogClass extends Dialog implements android.view.View.OnClickListener {
 
-    public Activity c;
-    public Button save;
-    Search searchObj;
-    MainActivity mainActivity;
-    Context context;
+    private Activity c;
+    private Button saveButton;
+    private Search searchObj;
+    private MainActivity mainActivity;
+    private Context context;
 
-    EditText editTextOffset;
-    EditText editTextAmount;
-    Spinner spinnerType;
+    private EditText editTextOffset;
+    private EditText editTextAmount;
+    private Spinner spinnerType;
 
     private String type;
     private String limit;
     private int idType;
     private String offset;
 
-    static final String SHARED_PREF_STRING_SEARCH_TYPE = "SearchType";
-    static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";
-    static final String SHARED_PREF_STRING_SEARCH_AMOUNT = "SearchAmount";
-    static final String SHARED_PREF_STRING_SEARCH_ID = "SearchId";
+    private static final String SHARED_PREF_STRING_SEARCH_TYPE = "SearchType";
+    private static final String SHARED_PREF_STRING_SEARCH_OFFSET = "SearchOffset";
+    private static final String SHARED_PREF_STRING_SEARCH_AMOUNT = "SearchAmount";
+    private static final String SHARED_PREF_STRING_SEARCH_ID = "SearchId";
 
 
     public CustomDialogClass(Activity a, Search searchObj, Context context) {
@@ -50,8 +50,8 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.custom_dialog);
-        save =findViewById(R.id.buttonDialogSave);
-        save.setOnClickListener(this);
+        saveButton =findViewById(R.id.buttonDialogSave);
+        saveButton.setOnClickListener(this);
         editTextOffset = findViewById(R.id.editTextDialogSearchOffset);
         editTextAmount = findViewById(R.id.editTextDialogSearchAmmount);
         spinnerType = findViewById(R.id.spinnerDialogSearchType);
@@ -77,7 +77,7 @@ public class CustomDialogClass extends Dialog implements android.view.View.OnCli
         }
         dismiss();
     }
-    public void callMainActivity(String type, String limit,String offset,int idType){
+    private void callMainActivity(String type, String limit, String offset, int idType){
         searchObj = new Search(type,limit,offset,idType);
         SaveData saveData = new SaveData(context);
         saveData.saveString(SHARED_PREF_STRING_SEARCH_OFFSET, offset);
