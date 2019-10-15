@@ -1,10 +1,16 @@
 package com.example.giphugifs;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +26,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -96,17 +112,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = listItems.get(position);
-                /*Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
-                //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
-                //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
-                email.putExtra(Intent.EXTRA_SUBJECT, subject);
-                email.putExtra(Intent.EXTRA_TEXT, message);
-
-                //need this to prompts email client only
-                email.setType("message/rfc822");
-                startActivity(Intent.createChooser());*/
-                return false;
+                Log.d("LOGIDEBUG", url);
+                //Share the gif user just long clicked from the list
+                new DownloadImageFromCacheTask(MainActivity.this).execute(url);
+                return true;
             }
         });
     }
