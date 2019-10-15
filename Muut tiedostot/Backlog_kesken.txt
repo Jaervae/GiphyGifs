@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-Nykyisessä versiossa
--Käyttäjänä voin etsiä halutulla hakusanalla gif-animaatioita.
--Käyttäjänä voin halutessani etsiä hakusanan lisäksi trendaavia tai satunnaisia gif-animaatioita.
--Käyttäjänä voin valita hakutuloksien maksimi määrän.
--Käyttäjänä voin haluta tarkempia tai epätarkempia tuloksia, kun haen hakusanalla.
--Käyttäjänä voin lisätä gif-animaation suosikkeihini ja poistaa sen suosikeista.
--Käyttäjänä voin erikseen selata omia suosikki gif-animaatioitani.
-
-Tulevaisuudessa
-
-=======
 Nykyisessä versiossa
 -Käyttäjänä voin etsiä halutulla hakusanalla gif-animaatioita.
 -Käyttäjänä voin halutessani etsiä hakusanan lisäksi trendaavia tai satunnaisia gif-animaatioita.
@@ -21,4 +9,3 @@ Nykyisessä versiossa
 
 Tulevaisuudessa
 ??
->>>>>>> 8a10a0d8eeb3cde05e510f7c0594ee474301dd1f
