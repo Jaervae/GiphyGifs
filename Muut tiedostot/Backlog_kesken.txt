@@ -5,7 +5,7 @@ Nykyisessä versiossa
 -Käyttäjänä voin haluta tarkempia tai epätarkempia tuloksia, kun haen hakusanalla.
 -Käyttäjänä voin lisätä gif-animaation suosikkeihini ja poistaa sen suosikeista.
 -Käyttäjänä voin erikseen selata omia suosikki gif-animaatioitani.
--Käyttäjänä voin jakaa gif-animaation whatsapissa kaverille tai ryhmään.
+-Käyttäjänä voin jakaa gif-animaation erilaisissa sosiaalisen median applikaatioissa kaverille tai ryhmään.
 
 Tulevaisuudessa
 ??
