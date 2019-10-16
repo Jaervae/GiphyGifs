@@ -7,5 +7,3 @@ Nykyisessä versiossa
 -Käyttäjänä voin erikseen selata omia suosikki gif-animaatioitani.
 -Käyttäjänä voin jakaa gif-animaation erilaisissa sosiaalisen median applikaatioissa kaverille tai ryhmään.
 
-Tulevaisuudessa
-??
