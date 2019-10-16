@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private final String urlP2 = "&offset=";
     private final String urlP3 = "&rating=G&lang=en";
     private int idType;
+    private boolean randomFunc = false;
 
 
     private RequestQueue mRequestQueue;
@@ -91,17 +92,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 listItems.clear();
+                loadData();
                 searchedItem = editText.getText().toString();
                 switch (type) {
                     case "search":
                         finalUrl = urlP1 + type + apiKey + "&q="+ searchedItem + "&limit=" + limit + urlP2 + offset + urlP3;
+                        Log.d("moro", finalUrl);
+                        randomFunc = false;
                         break;
                     case "trending":
                         finalUrl = urlP1 + type + apiKey + "&limit=" + limit + "&rating=G";
                         Log.d(TAG,finalUrl);
+                        randomFunc = false;
                         break;
                     case "random":
                         finalUrl = urlP1 + type + apiKey + "&tag=&rating=G";
+                        Log.d("moro", finalUrl);
+                        randomFunc = true;
                         break;
                 }
                 Log.d(TAG, finalUrl);
@@ -130,14 +137,22 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for(int i = 0; i < data.length(); i++){
-                        JSONObject c = data.getJSONObject(i);
+                    if (!randomFunc){
+                        JSONArray data = jsonObject.getJSONArray("data");
+                        for(int i = 0; i < data.length(); i++){
+                            JSONObject c = data.getJSONObject(i);
+                            JSONObject d = c.getJSONObject("images");
+                            JSONObject e = d.getJSONObject("downsized");
+                            listItems.add(e.getString("url"));
+                            Log.d("moro", listItems.get(i));
+                        }
+                    }else {
+                        JSONObject c = jsonObject.getJSONObject("data");
                         JSONObject d = c.getJSONObject("images");
                         JSONObject e = d.getJSONObject("downsized");
                         listItems.add(e.getString("url"));
-                        Log.d(TAG, listItems.get(i));
                     }
+
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
