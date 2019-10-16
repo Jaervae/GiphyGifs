@@ -1,5 +1,5 @@
 # GiphyGifs
 Small android project for school.
 
-Järvelä Olli
+Järvelä Olli <br>
 Mettovaara Toni
